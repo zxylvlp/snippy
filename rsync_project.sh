@@ -6,6 +6,7 @@ if [[ $# = 1 && $1 = "init" ]]; then
     rsync -avz $REMOTE_DIR$DIRNAME $LOCAL_DIR
     exit
 fi
+rsync -avz --exclude *'.git/index.lock' $LOCAL_DIR$DIRNAME $REMOTE_DIR
 fswatch -r $LOCAL_DIR$DIRNAME | while read line; do
     if [[ $line == *'.git/index.lock' ]]; then
         continue
