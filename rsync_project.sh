@@ -2,6 +2,10 @@
 LOCAL_DIR=/local_dir/
 REMOTE_DIR=username@0.0.0.0:/remote_dir/
 DIRNAME=project_dir_name
+if [[ $# = 1 && $1 = "init" ]]; then
+    rsync -avz $REMOTE_DIR$DIRNAME $LOCAL_DIR
+    exit
+fi
 fswatch -r $LOCAL_DIR$DIRNAME | while read line; do
     if [[ $line == *'.git/index.lock' ]]; then
         continue
